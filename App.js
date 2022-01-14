@@ -16,49 +16,47 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
       dni: '',
-      lletraNif: '',
+      lletra: '',
     };
   }
 
-  actualitzaText = elContingutDelTextInput => {
-    this.setState({text: elContingutDelTextInput});
-  };
-
-  actualitzaDNI = unDni => {
-    this.setState({dni: unDni});
-  };
-
-  actualitzaLletraNif = unaLletraNif => {
-    this.setState({lletraNif: unaLletraNif});
-  };
-
-  verificaNif = unDni => {
-    this.actualitzaDNI(unDni);
-    if (unDni.length === 8) {
-      this.actualitzaLletraNif(calculaLletraNif(unDni));
-    } else {
-      this.actualitzaLletraNif('');
+  actualitzaDni = unPossibleDNi => {
+    this.setState({dni: unPossibleDNi});
+    if (unPossibleDNi.length === 8) {
+      this.calculs(unPossibleDNi);
     }
   };
+
+  actualitzaLletra = unaPossibleLletra => {
+    this.setState({lletra: unaPossibleLletra});
+  };
+
+  calculs = unDni => {
+    if (unDni.length === 8) {
+      this.actualitzaLletra(calculaLletraNif(unDni));
+    }
+  };
+
   render() {
     return (
       <View>
         <View style={{flexDirection: 'row'}}>
-          <Text>DNI:</Text>
+          <Text style={{fontSize: 25}}>DNI:</Text>
           <TextInput
-            onChangeText={this.verificaNif}
-            value={this.state.dni}
+            style={{fontSize: 25}}
             placeholder="Escriu el DNI"
             keyboardType="numeric"
             underlineColorAndroid="blue"
             maxLength={8}
+            onChangeText={this.actualitzaDni}
           />
           <TextInput
-            value={this.state.lletraNif}
+            style={{fontSize: 25, color: 'blue'}}
+            value={this.state.lletra}
             placeholder="Lletra"
             editable={false}
+            maxLength={1}
             underlineColorAndroid="blue"
           />
         </View>
