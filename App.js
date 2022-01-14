@@ -9,6 +9,7 @@
 
 import React, {Component} from 'react';
 import {View, Text, TextInput, StyleSheet} from 'react-native';
+import {act} from 'react-test-renderer';
 import {ContenidorExercicis} from './components/contenidorExercicis/ContenidorExercicis';
 import {lletresNIF, calculaLletraNif} from './utils/Utils';
 
@@ -25,6 +26,8 @@ class App extends Component {
     this.setState({dni: unPossibleDNi});
     if (unPossibleDNi.length === 8) {
       this.calculs(unPossibleDNi);
+    } else {
+      this.actualitzaLletra('');
     }
   };
 
